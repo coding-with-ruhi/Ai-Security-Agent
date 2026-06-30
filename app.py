@@ -5,65 +5,96 @@ from tools import (
     find_targeted_users,
     find_suspicious_ips,
     save_report,
+    view_reports,
 )
+
 from agent import analyze_logs
 
-print("=" * 40)
-print("AI SECURITY AGENT")
-print("=" * 40)
 
-print("\nReading Server Logs...\n")
+def analyze_server_logs():
 
-logs = read_log_file()
+    print("\nReading Server Logs...\n")
 
-summary = parse_logs(logs)
-failed_attempts = count_failed_attempts_per_ip(logs)
+    logs = read_log_file()
 
-targeted_users = find_targeted_users(logs)
+    summary = parse_logs(logs)
 
-suspicious_ips = find_suspicious_ips(failed_attempts)
+    failed_attempts = count_failed_attempts_per_ip(logs)
 
-print("========== LOG SUMMARY ==========\n")
+    targeted_users = find_targeted_users(logs)
 
-print(f"Failed Logins      : {summary['failed_logins']}")
-print(f"Successful Logins  : {summary['successful_logins']}")
-print(f"Password Changes   : {summary['password_changes']}")
-print(f"IP Addresses       : {', '.join(summary['ip_addresses'])}")
-print("\n========== FAILED ATTEMPTS PER IP ==========\n")
+    suspicious_ips = find_suspicious_ips(failed_attempts)
 
-for ip, count in failed_attempts.items():
-    print(f"{ip} -> {count}")
+    print("\n========== LOG SUMMARY ==========\n")
 
-print("\n========== TARGETED USERS ==========\n")
+    print(f"Failed Logins      : {summary['failed_logins']}")
+    print(f"Successful Logins  : {summary['successful_logins']}")
+    print(f"Password Changes   : {summary['password_changes']}")
+    print(f"IP Addresses       : {', '.join(summary['ip_addresses'])}")
 
-for user, count in targeted_users.items():
-    print(f"{user} -> {count}")
+    print("\n========== FAILED ATTEMPTS PER IP ==========\n")
 
-print("\n========== SUSPICIOUS IPS ==========\n")
+    for ip, count in failed_attempts.items():
+        print(f"{ip} -> {count}")
 
-if suspicious_ips:
-    for ip in suspicious_ips:
-        print(ip)
-else:
-    print("No suspicious IPs detected.")
+    print("\n========== TARGETED USERS ==========\n")
 
-print("\n========== AI ANALYSIS ==========\n")
+    for user, count in targeted_users.items():
+        print(f"{user} -> {count}")
 
-analysis = analyze_logs(
-    logs,
-    summary,
-    failed_attempts,
-    targeted_users,
-    suspicious_ips
-)
+    print("\n========== SUSPICIOUS IPS ==========\n")
 
-print(analysis) 
-report_path = save_report(analysis)
+    if suspicious_ips:
+        for ip in suspicious_ips:
+            print(ip)
+    else:
+        print("No suspicious IPs detected.")
 
-print("\n========================================")
+    print("\n========== AI ANALYSIS ==========\n")
 
-print("REPORT SAVED SUCCESSFULLY")
+    analysis = analyze_logs(
+        logs,
+        summary,
+        failed_attempts,
+        targeted_users,
+        suspicious_ips,
+    )
 
-print(f"Location: {report_path}")
+    print(analysis)
 
-print("========================================")
+    report_path = save_report(analysis)
+
+    print("\n========================================")
+    print("REPORT SAVED SUCCESSFULLY")
+    print(f"Location: {report_path}")
+    print("========================================")
+
+
+while True:
+
+    print("\n" + "=" * 50)
+    print("        AI SECURITY AGENT")
+    print("=" * 50)
+
+    print("1. Analyze Server Logs")
+    print("2. View Saved Reports")
+    print("3. Exit")
+
+    choice = input("\nChoose an option: ")
+
+    if choice == "1":
+
+        analyze_server_logs()
+
+    elif choice == "2":
+
+        view_reports()
+
+    elif choice == "3":
+
+        print("\nGoodbye!")
+        break
+
+    else:
+
+        print("\nInvalid option. Please try again.")

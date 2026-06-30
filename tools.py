@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import datetime
+import os
 
 def read_log_file():
     """
@@ -120,3 +121,20 @@ def save_report(report_text):
         file.write(report_text)
 
     return filename
+def view_reports():
+    """
+    Display all saved reports.
+    """
+
+    report_folder = "reports"
+
+    reports = os.listdir(report_folder)
+
+    if not reports:
+        print("\nNo reports found.\n")
+        return
+
+    print("\n========== SAVED REPORTS ==========\n")
+
+    for index, report in enumerate(reports, start=1):
+        print(f"{index}. {report}")

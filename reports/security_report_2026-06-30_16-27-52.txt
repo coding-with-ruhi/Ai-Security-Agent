@@ -1,0 +1,59 @@
+**Security Incident Report**
+
+**Incident Overview:**
+
+This security incident report summarizes a series of login attempts and password changes that occurred on June 30, 2026.
+
+**Incident Details:**
+
+The following events were recorded:
+
+* Four failed login attempts by user "admin" from IP address 44.21.88.1 between 10:12:55 and 10:13:09.
+* One successful login attempt by user "admin" from the same IP address, occurring at 10:17:45 after a password change for the user.
+* One successful login attempt by user "ruhi" from IP address 192.168.1.10.
+
+**Parsed Summary:**
+
+The following metrics were extracted from the raw server logs:
+
+* Failed Logins: 4
+* Successful Logins: 2
+* Password Changes: 1
+* IP Addresses:
+	+ 192.168.1.10 (ruhi)
+	+ 44.21.88.1 (admin)
+
+**Failed Attempts Per IP:**
+
+The following failed attempts were recorded for each IP address:
+
+* 44.21.88.1: 4
+
+**Targeted Users:**
+
+The following user was targeted by repeated login attempts:
+
+* admin: 4 failed attempts
+
+**Suspicious IPs:**
+
+One IP address showed suspicious behavior, resulting in multiple failed login attempts and a successful login attempt after a password change.
+
+**Recommendations:**
+
+Based on the incident details and summary, we recommend the following actions:
+
+1. Investigate the source of the compromised password for user "admin" to prevent similar incidents in the future.
+2. Review and update IP blocking policies to restrict access from the suspicious IP address (44.21.88.1).
+3. Monitor login attempts and account activity to detect potential security breaches.
+
+**Next Steps:**
+
+* Conduct further investigation into the compromised password for user "admin".
+* Update IP blocking policies to include the suspicious IP address.
+* Continue monitoring login attempts and account activity to ensure the security of our system.
+
+Signed,
+
+[Your Name]
+Security Analyst
