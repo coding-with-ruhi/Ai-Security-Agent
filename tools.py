@@ -51,3 +51,58 @@ def parse_logs(log_text):
     }
 
     return summary
+def count_failed_attempts_per_ip(log_text):
+    """
+    Count how many failed login attempts came from each IP.
+    """
+
+    failed_attempts = {}
+
+    lines = log_text.split("\n")
+
+    for line in lines:
+
+        if "LOGIN FAILED" in line and "ip=" in line:
+
+            ip = line.split("ip=")[1].strip()
+
+            if ip in failed_attempts:
+                failed_attempts[ip] += 1
+            else:
+                failed_attempts[ip] = 1
+
+    return failed_attempts
+def find_targeted_users(log_text):
+    """
+    Count failed login attempts for each user.
+    """
+
+    users = {}
+
+    lines = log_text.split("\n")
+
+    for line in lines:
+
+        if "LOGIN FAILED" in line and "user=" in line:
+
+            username = line.split("user=")[1].split()[0]
+
+            if username in users:
+                users[username] += 1
+            else:
+                users[username] = 1
+
+    return users
+def find_suspicious_ips(failed_attempts, threshold=3):
+    """
+    Return IP addresses with failed attempts above the threshold.
+    """
+
+    suspicious_ips = []
+
+    for ip, attempts in failed_attempts.items():
+
+        if attempts >= threshold:
+            suspicious_ips.append(ip)
+
+    return suspicious_ips
