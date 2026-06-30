@@ -138,3 +138,48 @@ def view_reports():
 
     for index, report in enumerate(reports, start=1):
         print(f"{index}. {report}")
+def calculate_risk_score(summary, failed_attempts, targeted_users, suspicious_ips):
+    """
+    Calculate a security risk score based on predefined rules.
+    """
+
+    score = 0
+    reasons = []
+
+    # Rule 1
+    if summary["failed_logins"] >= 3:
+        score += 30
+        reasons.append("Multiple failed login attempts detected.")
+
+    # Rule 2
+    if len(suspicious_ips) > 0:
+        score += 25
+        reasons.append("Suspicious IP addresses detected.")
+
+    # Rule 3
+    if "admin" in targeted_users:
+        score += 25
+        reasons.append("Administrative account targeted.")
+
+    # Rule 4
+    if summary["password_changes"] > 0:
+        score += 20
+        reasons.append("Password change detected after suspicious activity.")
+
+    return score, reasons
+def get_severity(score):
+    """
+    Convert a numerical score into a severity level.
+    """
+
+    if score >= 80:
+        return "CRITICAL"
+
+    elif score >= 60:
+        return "HIGH"
+
+    elif score >= 40:
+        return "MEDIUM"
+
+    else:
+        return "LOW"

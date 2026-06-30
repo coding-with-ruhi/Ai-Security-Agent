@@ -6,24 +6,40 @@ from tools import (
     find_suspicious_ips,
     save_report,
     view_reports,
+    calculate_risk_score,
+    get_severity,
 )
 
 from agent import analyze_logs
 
 
 def analyze_server_logs():
-
     print("\nReading Server Logs...\n")
 
+    # Read logs
     logs = read_log_file()
 
+    # Parse logs
     summary = parse_logs(logs)
 
+    # Perform analysis using Python tools
     failed_attempts = count_failed_attempts_per_ip(logs)
-
     targeted_users = find_targeted_users(logs)
-
     suspicious_ips = find_suspicious_ips(failed_attempts)
+
+    # Calculate Risk Score
+    risk_score, reasons = calculate_risk_score(
+        summary,
+        failed_attempts,
+        targeted_users,
+        suspicious_ips,
+    )
+
+    severity = get_severity(risk_score)
+
+    # ==========================
+    # LOG SUMMARY
+    # ==========================
 
     print("\n========== LOG SUMMARY ==========\n")
 
@@ -32,15 +48,27 @@ def analyze_server_logs():
     print(f"Password Changes   : {summary['password_changes']}")
     print(f"IP Addresses       : {', '.join(summary['ip_addresses'])}")
 
+    # ==========================
+    # FAILED ATTEMPTS
+    # ==========================
+
     print("\n========== FAILED ATTEMPTS PER IP ==========\n")
 
     for ip, count in failed_attempts.items():
         print(f"{ip} -> {count}")
 
+    # ==========================
+    # TARGETED USERS
+    # ==========================
+
     print("\n========== TARGETED USERS ==========\n")
 
     for user, count in targeted_users.items():
         print(f"{user} -> {count}")
+
+    # ==========================
+    # SUSPICIOUS IPS
+    # ==========================
 
     print("\n========== SUSPICIOUS IPS ==========\n")
 
@@ -50,6 +78,24 @@ def analyze_server_logs():
     else:
         print("No suspicious IPs detected.")
 
+    # ==========================
+    # RISK ASSESSMENT
+    # ==========================
+
+    print("\n========== RISK ASSESSMENT ==========\n")
+
+    print(f"Risk Score : {risk_score}/100")
+    print(f"Severity   : {severity}")
+
+    print("\nReasons:")
+
+    for reason in reasons:
+        print(f"- {reason}")
+
+    # ==========================
+    # AI ANALYSIS
+    # ==========================
+
     print("\n========== AI ANALYSIS ==========\n")
 
     analysis = analyze_logs(
@@ -58,9 +104,16 @@ def analyze_server_logs():
         failed_attempts,
         targeted_users,
         suspicious_ips,
+        risk_score,
+        severity,
+        reasons,
     )
 
     print(analysis)
+
+    # ==========================
+    # SAVE REPORT
+    # ==========================
 
     report_path = save_report(analysis)
 
@@ -69,6 +122,10 @@ def analyze_server_logs():
     print(f"Location: {report_path}")
     print("========================================")
 
+
+# ==========================
+# MAIN MENU
+# ==========================
 
 while True:
 
@@ -83,18 +140,14 @@ while True:
     choice = input("\nChoose an option: ")
 
     if choice == "1":
-
         analyze_server_logs()
 
     elif choice == "2":
-
         view_reports()
 
     elif choice == "3":
-
         print("\nGoodbye!")
         break
 
     else:
-
         print("\nInvalid option. Please try again.")

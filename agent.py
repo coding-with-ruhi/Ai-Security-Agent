@@ -2,16 +2,29 @@ from ollama import chat
 from prompts import SYSTEM_PROMPT
 
 
-def analyze_logs(log_text, summary, failed_attempts, targeted_users, suspicious_ips):
+def analyze_logs(
+    log_text,
+    summary,
+    failed_attempts,
+    targeted_users,
+    suspicious_ips,
+    risk_score,
+    severity,
+    reasons,
+):
 
     prompt = f"""
-Raw Server Logs:
+{SYSTEM_PROMPT}
+
+==================================================
+
+RAW SERVER LOGS
 
 {log_text}
 
-----------------------------------------
+==================================================
 
-Parsed Summary
+PARSED SUMMARY
 
 Failed Logins:
 {summary['failed_logins']}
@@ -25,27 +38,40 @@ Password Changes:
 IP Addresses:
 {summary['ip_addresses']}
 
-----------------------------------------
+==================================================
 
-Failed Attempts Per IP
+FAILED ATTEMPTS PER IP
 
 {failed_attempts}
 
-----------------------------------------
+==================================================
 
-Targeted Users
+TARGETED USERS
 
 {targeted_users}
 
-----------------------------------------
+==================================================
 
-Suspicious IPs
+SUSPICIOUS IPS
 
 {suspicious_ips}
 
-----------------------------------------
+==================================================
 
-Please generate the security incident report.
+RISK ASSESSMENT
+
+Risk Score:
+{risk_score}/100
+
+Severity:
+{severity}
+
+Reasons:
+{chr(10).join(reasons)}
+
+==================================================
+
+Please generate the complete security incident report.
 """
 
     response = chat(
