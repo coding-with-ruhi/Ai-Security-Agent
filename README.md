@@ -30,28 +30,10 @@ The project demonstrates how traditional Python programming and AI reasoning can
 - Llama 3.2 (3B)
 - VS Code
 
-
 ## Workflow
 
-Read Logs
-    ↓
-Parse Log Data
-    ↓
-Detect Suspicious Activity
-    ↓
-Calculate Risk Score
-    ↓
-Generate AI Security Report
-    ↓
-Display Security Alert
-    ↓
-Recommend Response Actions
-    ↓
-Human Approval
-    ↓
-Simulate Security Response
-    ↓
-Save Incident Report
+Read Logs → Parse Log Data → Detect Suspicious Activity → Calculate Risk Score → Generate AI Security Report → Display Security Alert → Recommend Response Actions → Human Approval → Simulate Security Response → Save Incident Report
+
 
 ## Author
 
