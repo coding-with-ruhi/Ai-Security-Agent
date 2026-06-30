@@ -1,20 +1,25 @@
-from tools import read_log_file
+from tools import read_log_file, parse_logs
 from agent import analyze_logs
 
-print("===================================")
-print(" AI SECURITY AGENT ")
-print("===================================")
+print("=" * 40)
+print("AI SECURITY AGENT")
+print("=" * 40)
 
 print("\nReading Server Logs...\n")
 
 logs = read_log_file()
 
-print(logs)
+summary = parse_logs(logs)
 
-print("\nAnalyzing logs using Local AI...\n")
+print("========== LOG SUMMARY ==========\n")
+
+print(f"Failed Logins      : {summary['failed_logins']}")
+print(f"Successful Logins  : {summary['successful_logins']}")
+print(f"Password Changes   : {summary['password_changes']}")
+print(f"IP Addresses       : {', '.join(summary['ip_addresses'])}")
+
+print("\n========== AI ANALYSIS ==========\n")
 
 analysis = analyze_logs(logs)
 
-print("========== AI ANALYSIS ==========\n")
-
-print(analysis)
+print(analysis) 
