@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 
 def read_log_file():
     """
@@ -106,3 +107,16 @@ def find_suspicious_ips(failed_attempts, threshold=3):
             suspicious_ips.append(ip)
 
     return suspicious_ips
+def save_report(report_text):
+    """
+    Save the AI-generated report into the reports folder.
+    """
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    filename = f"reports/security_report_{timestamp}.txt"
+
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(report_text)
+
+    return filename

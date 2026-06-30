@@ -1,0 +1,56 @@
+**Security Incident Report**
+
+**Incident Details:**
+
+A login attempt incident was detected on [Date] involving a total of 6 login attempts and one password change.
+
+**Summary:**
+
+* Total Failed Logins: 4
+* Total Successful Logins: 2
+* Password Changes: 1
+* IP Addresses Involved:
+	+ '192.168.1.10'
+	+ '44.21.88.1'
+
+**Failed Attempts Per IP:**
+
+* '44.21.88.1': 4 failed login attempts
+
+**Targeted Users:**
+
+* 'admin': 4 failed login attempts
+
+**Suspicious IPs:**
+
+* '44.21.88.1' - The IP address was found to be associated with 4 failed login attempts, indicating potential malicious activity.
+
+**Recommendations:**
+
+1. Review the failed login attempt logs for any other suspicious activities or patterns.
+2. Verify that all passwords have been updated and reset as necessary.
+3. Consider implementing additional security measures such as IP blocking or two-factor authentication to prevent future unauthorized access attempts.
+4. Conduct a thorough investigation into the identity of the individual behind the compromised IP address.
+
+**Action Items:**
+
+1. Notify IT/Security Team: Inform the IT/Security team about the incident and request their assistance in investigating and mitigating the threat.
+2. Update Password Policy: Implement a password reset policy to ensure that all users have secure passwords.
+3. Review Security Logs: Analyze security logs for any other potential security incidents or breaches.
+
+**Incident Timeline:**
+
+* [Date] 10:12:55 - First failed login attempt by 'admin'
+* [Date] 10:15:20 - Password change detected
+* [Date] 10:17:45 - Successful login attempt by 'admin'
+
+**Conclusion:**
+
+A potential security incident was identified on [Date], involving a total of 6 login attempts and one password change. The IP address '44.21.88.1' showed signs of suspicious activity, indicating potential malicious behavior. Further investigation is required to determine the identity of the individual behind this incident.
+
+**Recommendations for Future Prevention:**
+
+* Regularly review security logs for any suspicious activity
+* Implement additional security measures such as two-factor authentication and IP blocking
+* Conduct regular password updates and enforcement
+* Educate users about phishing and other security threats

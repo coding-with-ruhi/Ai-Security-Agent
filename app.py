@@ -4,6 +4,7 @@ from tools import (
     count_failed_attempts_per_ip,
     find_targeted_users,
     find_suspicious_ips,
+    save_report,
 )
 from agent import analyze_logs
 
@@ -57,3 +58,12 @@ analysis = analyze_logs(
 )
 
 print(analysis) 
+report_path = save_report(analysis)
+
+print("\n========================================")
+
+print("REPORT SAVED SUCCESSFULLY")
+
+print(f"Location: {report_path}")
+
+print("========================================")
