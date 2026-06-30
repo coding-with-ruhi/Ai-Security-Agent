@@ -48,6 +48,12 @@ else:
 
 print("\n========== AI ANALYSIS ==========\n")
 
-analysis = analyze_logs(logs)
+analysis = analyze_logs(
+    logs,
+    summary,
+    failed_attempts,
+    targeted_users,
+    suspicious_ips
+)
 
 print(analysis) 
